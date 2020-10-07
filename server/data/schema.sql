@@ -2,12 +2,11 @@ DROP TABLE IF EXISTS Positions
 CASCADE;
 DROP TABLE IF EXISTS Users
 CASCADE;
+DROP TABLE IF EXISTS ProjectTags
+CASCADE;
 DROP TABLE IF EXISTS Projects;
-CREATE TABLE Positions
-(
-  id SERIAL PRIMARY KEY,
-  position VARCHAR(255)
-);
+DROP TABLE IF EXISTS Tags;
+
 -- TODO: remigrate the DB here
 CREATE TABLE Users
 (
@@ -47,3 +46,15 @@ CREATE TABLE Projects
   [] NOT NULL,
   tags TEXT
 );
+
+  CREATE TABLE Tags
+  (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE
+  );
+
+  CREATE TABLE ProjectTags
+  (
+    project_id INTEGER REFERENCES Projects(id),
+    tag_id INTEGER REFERENCES Tags(id)
+  )
